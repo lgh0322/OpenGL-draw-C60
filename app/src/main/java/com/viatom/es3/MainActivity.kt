@@ -5,24 +5,24 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 open class MainActivity : AppCompatActivity() {
-    private var mGLSurfaceView: GLSurfaceView? = null
-
+    lateinit var mGLSurfaceView:GLSurfaceView
    private fun bindRenderer(): GLSurfaceView.Renderer? {
         return IndicesCubeRenderer()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppCore.getInstance().init(application)
+        setContentView(R.layout.activity_main)
+        mGLSurfaceView=findViewById(R.id.gl)
         setupViews()
     }
 
     private fun setupViews() {
-        mGLSurfaceView = GLSurfaceView(this)
-        setContentView(mGLSurfaceView)
-        //设置版本
-        mGLSurfaceView!!.setEGLContextClientVersion(3)
         val renderer = bindRenderer()
-        mGLSurfaceView!!.setRenderer(renderer)
+        mGLSurfaceView.run {
+           setEGLContextClientVersion(3)
+           setRenderer(renderer)
+        }
+
     }
 
 }
