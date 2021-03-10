@@ -1,8 +1,10 @@
-package com.viatom.es3
+package com.viatom.es3.activity
 
 import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.viatom.es3.R
+import com.viatom.es3.renderer.CubeRenderer
 
 open class MainActivity : AppCompatActivity() {
     lateinit var mGLSurfaceView: GLSurfaceView
@@ -15,7 +17,7 @@ open class MainActivity : AppCompatActivity() {
 
     private fun init() {
         mGLSurfaceView = findViewById(R.id.gl)
-        val renderer =CubeRenderer()
+        val renderer = CubeRenderer()
         mGLSurfaceView.run {
             setEGLContextClientVersion(3)
             setRenderer(renderer)

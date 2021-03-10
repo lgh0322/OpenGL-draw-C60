@@ -1,7 +1,8 @@
-package com.viatom.es3
+package com.viatom.es3.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
+import com.viatom.es3.R
 import com.viatom.es3.utils.ResReadUtils.readResource
 import com.viatom.es3.utils.ShaderUtils.compileFragmentShader
 import com.viatom.es3.utils.ShaderUtils.compileVertexShader
