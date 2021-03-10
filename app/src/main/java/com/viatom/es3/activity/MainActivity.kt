@@ -7,7 +7,7 @@ import com.viatom.es3.R
 import com.viatom.es3.renderer.CubeRenderer
 
 open class MainActivity : AppCompatActivity() {
-    lateinit var mGLSurfaceView: GLSurfaceView
+    private lateinit var mGLSurfaceView: GLSurfaceView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,6 @@ open class MainActivity : AppCompatActivity() {
     private fun init() {
         mGLSurfaceView = findViewById(R.id.gl)
         val renderer = CubeRenderer()
-        renderer.yes()
         mGLSurfaceView.run {
             setEGLContextClientVersion(3)
             setRenderer(renderer)

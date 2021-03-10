@@ -62,7 +62,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
     )
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
-
+        yes()
     }
 
     fun yes(){
@@ -96,7 +96,6 @@ class CubeRenderer : GLSurfaceView.Renderer {
     }
 
     override fun onDrawFrame(gl: GL10) {
-        yes()
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
         GLES30.glDrawElements(
             GL10.GL_TRIANGLES,
