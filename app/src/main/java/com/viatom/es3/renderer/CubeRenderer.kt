@@ -2,6 +2,7 @@ package com.viatom.es3.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
+import android.util.Log
 import com.viatom.es3.R
 import com.viatom.es3.utils.ResReadUtils.readResource
 import com.viatom.es3.utils.ShaderUtils.compileFragmentShader
@@ -29,13 +30,16 @@ class CubeRenderer : GLSurfaceView.Renderer {
         0.5f, 0.0f, 0.0f,
         0.0f, 0.5f, 0.0f,
         -0.5f, -0.0f, 0.0f,
+        0f,0.15f,-0.1f,
+        0.15f,0.15f,-0.1f,
+        0.15f,-0.15f,-0.1f,
     )
 
     /**
      * 定义索引
      */
     private val indices = shortArrayOf(
-       0,1,2
+       0,1,2,3,4,5
     )
 
     //立方体的顶点颜色
@@ -43,9 +47,9 @@ class CubeRenderer : GLSurfaceView.Renderer {
        1f, 0.0f, 0.0f, 1f,
         1f, 0.0f, 0.0f, 1f,
         1f, 0.0f, 0.0f, 1f,
-        0f, 1f, 0.0f, 1f,
-        0f, 0.0f, 1f, 1f,
-
+        0f, 1.0f, 0.0f, 1f,
+        0f, 1.0f, 0.0f, 1f,
+        0f, 1.0f, 0.0f, 1f,
     )
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
@@ -75,14 +79,19 @@ class CubeRenderer : GLSurfaceView.Renderer {
         GLES30.glVertexAttribPointer(1, VERTEX_COLOR_SIZE, GLES30.GL_FLOAT, false, 0, colorBuffer)
         //启用颜色顶点属性
         GLES30.glEnableVertexAttribArray(1)
+        GLES30.glClearDepthf(1.0f); // 设置深度缓存
+        GLES30.glEnable( GLES30.GL_DEPTH_TEST);    // 启用深度测试
+        GLES30.glDepthFunc( GLES30.GL_LEQUAL);     // 深度测试类型
     }
 
 
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
-        GLES30.glViewport(0, 0, width, height)
+//        Log.e("fuck","fuck $width    $height")
+//        GLES30.glViewport(0, 0, width, height)
     }
 
     override fun onDrawFrame(gl: GL10) {
+        GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT)
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
         GLES30.glDrawElements(
             GL10.GL_TRIANGLES,
