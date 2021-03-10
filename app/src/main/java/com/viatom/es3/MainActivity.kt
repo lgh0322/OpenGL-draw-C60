@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 open class MainActivity : AppCompatActivity() {
     lateinit var mGLSurfaceView: GLSurfaceView
     private fun bindRenderer(): GLSurfaceView.Renderer? {
-        return IndicesCubeRenderer()
+        return CubeRenderer()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

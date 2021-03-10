@@ -1,4 +1,4 @@
-package com.viatom.es3
+package com.viatom.es3.utils
 
 import android.opengl.GLES30
 

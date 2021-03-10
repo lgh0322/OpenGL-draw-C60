@@ -2,10 +2,10 @@ package com.viatom.es3
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
-import com.viatom.es3.ResReadUtils.readResource
-import com.viatom.es3.ShaderUtils.compileFragmentShader
-import com.viatom.es3.ShaderUtils.compileVertexShader
-import com.viatom.es3.ShaderUtils.linkProgram
+import com.viatom.es3.utils.ResReadUtils.readResource
+import com.viatom.es3.utils.ShaderUtils.compileFragmentShader
+import com.viatom.es3.utils.ShaderUtils.compileVertexShader
+import com.viatom.es3.utils.ShaderUtils.linkProgram
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -18,7 +18,7 @@ import javax.microedition.khronos.opengles.GL10
  * @date: 2018-11-09
  * @description: 基于索引法绘制立方体
  */
-class IndicesCubeRenderer : GLSurfaceView.Renderer {
+class CubeRenderer : GLSurfaceView.Renderer {
     private val vertexBuffer: FloatBuffer
     private val colorBuffer: FloatBuffer
     private val indicesBuffer: ShortBuffer
