@@ -53,10 +53,6 @@ class CubeRenderer : GLSurfaceView.Renderer {
     )
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
-        yes()
-    }
-
-    fun yes(){
         //设置背景颜色
         GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
         //编译
@@ -83,6 +79,8 @@ class CubeRenderer : GLSurfaceView.Renderer {
         GLES30.glEnable( GLES30.GL_DEPTH_TEST);    // 启用深度测试
         GLES30.glDepthFunc( GLES30.GL_LEQUAL);     // 深度测试类型
     }
+
+
 
 
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
