@@ -6,9 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 open class MainActivity : AppCompatActivity() {
     lateinit var mGLSurfaceView: GLSurfaceView
-    private fun bindRenderer(): GLSurfaceView.Renderer? {
-        return CubeRenderer()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +15,7 @@ open class MainActivity : AppCompatActivity() {
 
     private fun init() {
         mGLSurfaceView = findViewById(R.id.gl)
-        val renderer = bindRenderer()
+        val renderer =CubeRenderer()
         mGLSurfaceView.run {
             setEGLContextClientVersion(3)
             setRenderer(renderer)
