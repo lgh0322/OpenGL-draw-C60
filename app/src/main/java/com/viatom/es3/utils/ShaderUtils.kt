@@ -2,11 +2,6 @@ package com.viatom.es3.utils
 
 import android.opengl.GLES30
 
-/**
- * @anchor: andy
- * @date: 2018-09-13
- * @description:
- */
 object ShaderUtils {
     private const val TAG = "ShaderUtils"
 

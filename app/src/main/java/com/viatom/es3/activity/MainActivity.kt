@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.viatom.es3.R
 import com.viatom.es3.renderer.CubeRenderer
+import java.lang.Thread.sleep
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var mGLSurfaceView: GLSurfaceView
@@ -12,6 +13,7 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sleep(1000)
         init()
     }
 
