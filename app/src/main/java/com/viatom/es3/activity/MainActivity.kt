@@ -18,6 +18,7 @@ open class MainActivity : AppCompatActivity() {
     private fun init() {
         mGLSurfaceView = findViewById(R.id.gl)
         val renderer = CubeRenderer()
+        renderer.yes()
         mGLSurfaceView.run {
             setEGLContextClientVersion(3)
             setRenderer(renderer)

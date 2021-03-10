@@ -62,6 +62,10 @@ class CubeRenderer : GLSurfaceView.Renderer {
     )
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
+
+    }
+
+    fun yes(){
         //设置背景颜色
         GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
         //编译
@@ -86,11 +90,13 @@ class CubeRenderer : GLSurfaceView.Renderer {
         GLES30.glEnableVertexAttribArray(1)
     }
 
+
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
         GLES30.glViewport(0, 0, width, height)
     }
 
     override fun onDrawFrame(gl: GL10) {
+        yes()
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
         GLES30.glDrawElements(
             GL10.GL_TRIANGLES,
