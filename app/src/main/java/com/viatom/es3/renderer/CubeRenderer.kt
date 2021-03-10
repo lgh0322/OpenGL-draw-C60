@@ -14,15 +14,12 @@ import java.nio.ShortBuffer
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-/**
- * @anchor: andy
- * @date: 2018-11-09
- * @description: 基于索引法绘制立方体
- */
+
 class CubeRenderer : GLSurfaceView.Renderer {
     private val vertexBuffer: FloatBuffer
     private val colorBuffer: FloatBuffer
     private val indicesBuffer: ShortBuffer
+
     private var mProgram = 0
 
     /**
@@ -112,25 +109,25 @@ class CubeRenderer : GLSurfaceView.Renderer {
         //分配内存空间,每个浮点型占4字节空间
         vertexBuffer = ByteBuffer.allocateDirect(vertexPoints.size * 4)
             .order(ByteOrder.nativeOrder())
-            .asFloatBuffer()
-        //传入指定的坐标数据
-        vertexBuffer.put(vertexPoints)
-        vertexBuffer.position(0)
+            .asFloatBuffer().apply {
+                put(vertexPoints)
+                position(0)
+            }
 
         //分配内存空间,每个浮点型占4字节空间
         colorBuffer = ByteBuffer.allocateDirect(colors.size * 4)
             .order(ByteOrder.nativeOrder())
-            .asFloatBuffer()
-        //传入指定的数据
-        colorBuffer.put(colors)
-        colorBuffer.position(0)
+            .asFloatBuffer().apply {
+                put(colors)
+                position(0)
+            }
 
-        //分配内存空间,每个浮点型占4字节空间
-        indicesBuffer = ByteBuffer.allocateDirect(indices.size * 4)
+
+        indicesBuffer = ByteBuffer.allocateDirect(indices.size * 2)
             .order(ByteOrder.nativeOrder())
-            .asShortBuffer()
-        //传入指定的数据
-        indicesBuffer.put(indices)
-        indicesBuffer.position(0)
+            .asShortBuffer().apply {
+                put(indices)
+                position(0)
+            }
     }
 }
