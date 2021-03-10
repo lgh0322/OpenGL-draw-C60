@@ -41,9 +41,9 @@ class CubeRenderer : GLSurfaceView.Renderer {
 
     //立方体的顶点颜色
     private val colors = floatArrayOf(
-       1f, 0.0f, 0.0f, 1f,  //V0
-        0f, 1f, 0.0f, 1f,  //V1
-        0f, 0.0f, 1f, 1f,  //V2
+       1f, 0.0f, 0.0f, 1f,
+        0f, 1f, 0.0f, 1f,
+        0f, 0.0f, 1f, 1f,
 
     )
 
