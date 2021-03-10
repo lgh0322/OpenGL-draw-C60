@@ -65,7 +65,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
         //设置背景颜色
-        GLES30.glClearColor(0.5f, 0.5f, 0.5f, 0.5f)
+        GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
         //编译
         val vertexShaderId = compileVertexShader(readResource(R.raw.vertex_colorcube_shader))
         val fragmentShaderId = compileFragmentShader(readResource(R.raw.fragment_colorcube_shader))
