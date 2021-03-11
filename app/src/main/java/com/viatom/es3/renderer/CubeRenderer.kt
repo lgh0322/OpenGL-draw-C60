@@ -3,7 +3,6 @@ package com.viatom.es3.renderer
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
-import android.os.SystemClock
 import android.util.Log
 import com.viatom.es3.R
 import com.viatom.es3.utils.ResReadUtils.readResource
@@ -26,12 +25,15 @@ class CubeRenderer : GLSurfaceView.Renderer {
     private val indicesBuffer: ShortBuffer
 
     private var mProgram = 0
+    private val InitMatrix = FloatArray(16)
     private val rotationMatrix = FloatArray(16)
-
+    private val rotationMatriy = FloatArray(16)
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     private val vPMatrix = FloatArray(16)
     private val projectionMatrix = FloatArray(16)
     private val viewMatrix = FloatArray(16)
+    var angleX=0f
+    var angleY=0f
 
     /**
      * 点的坐标
@@ -118,6 +120,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
 
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
+
         //设置背景颜色
         GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
         //编译
@@ -144,6 +147,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
         GLES30.glEnable( GLES30.GL_DEPTH_TEST);    // 启用深度测试
         GLES30.glDepthFunc( GLES30.GL_LEQUAL);     // 深度测试类型
 
+       Matrix.setIdentityM(InitMatrix,0)
     }
 
 
@@ -166,10 +170,15 @@ class CubeRenderer : GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
-        val time = SystemClock.uptimeMillis() % 4000L
-        val angle = 0.090f * time.toInt()
-        Matrix.setRotateM(rotationMatrix, 0, angle, 0f, 0f, -1.0f)
-        Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0)
+
+        Matrix.setRotateM(rotationMatrix, 0, angleX, 0f, -1f, 0f)
+        Matrix.setRotateM(rotationMatriy, 0, angleY, 1f, 0f, 0f)
+
+        Matrix.multiplyMM(rotationMatrix, 0, rotationMatrix, 0, rotationMatriy, 0)
+        Matrix.multiplyMM(InitMatrix, 0,rotationMatrix, 0, InitMatrix, 0)
+
+        Matrix.multiplyMM(scratch, 0, vPMatrix, 0, InitMatrix, 0)
+
 
         val vPMatrixHandle=GLES30.glGetUniformLocation(mProgram,"uMVPMatrix")
         GLES30.glUniformMatrix4fv(vPMatrixHandle,1,false,scratch,0)
