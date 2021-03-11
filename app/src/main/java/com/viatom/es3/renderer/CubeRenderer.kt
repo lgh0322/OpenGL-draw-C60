@@ -27,6 +27,10 @@ class CubeRenderer : GLSurfaceView.Renderer {
     /**
      * 点的坐标
      */
+
+    private var vertexPoints2 =FloatArray(10000)
+    var ss=0
+    lateinit var vv:FloatArray
     private var vertexPoints = floatArrayOf(
         0f,1.26295146067f,1.192569588f,
         0f,1.63147573033f,0.596284793999f,
@@ -97,7 +101,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
     private var indices =ShortArray(20*4*3+12*3*3)
 
     //立方体的顶点颜色
-    private var colors = FloatArray(60*4)
+    private var colors = FloatArray(10000)
 
     private val six= intArrayOf(0,1,9,8,12,13,1,0,11,10,2,3,3,2,19,18,4,5,5,4,25,24,6,7,7,6,31,30,8,9,10,11,17,16,20,21,13,12,39,38,14,15,15,14,57,56,16,17,18,19,23,22,28,29,21,20,59,58,22,23,24,25,27,26,32,33,26,27,29,28,52,53,30,31,35,34,36,37,33,32,51,50,34,35,37,36,55,54,38,39,40,41,43,42,50,51,41,40,53,52,48,49,42,43,45,44,54,55,44,45,47,46,56,57,46,47,49,48,58,59)
 
@@ -143,11 +147,10 @@ class CubeRenderer : GLSurfaceView.Renderer {
     override fun onDrawFrame(gl: GL10) {
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT)
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
-        GLES30.glDrawElements(
-            GL10.GL_TRIANGLES,
-            indices.size,
-            GL10.GL_UNSIGNED_SHORT,
-            indicesBuffer
+        GLES30.glDrawArrays(
+            GLES30.GL_TRIANGLES,
+            0,
+           ss
         )
     }
 
@@ -169,32 +172,79 @@ class CubeRenderer : GLSurfaceView.Renderer {
         }
 
         var x=0
+        var a=0f
+        var b=0f
+        var c=0f
         for(k in 0 until 20){
+            a= Random.nextFloat()
+            b= Random.nextFloat()
+            c= Random.nextFloat()
             for(j in 0 until 4){
-                indices[x]=six[6*k].toShort()
+                vertexPoints2[3*x]=vertexPoints[3*six[6*k]]
+                vertexPoints2[3*x+1]=vertexPoints[3*six[6*k]+1]
+                vertexPoints2[3*x+2]=vertexPoints[3*six[6*k]+2]
+                colors[4*x]=a
+                colors[4*x+1]=b
+                colors[4*x+2]=c
+                colors[4*x+3]=1f
                 x++
-                indices[x]=six[6*k+1+j].toShort()
+                vertexPoints2[3*x]=vertexPoints[3*six[6*k+1+j]]
+                vertexPoints2[3*x+1]=vertexPoints[3*six[6*k+1+j]+1]
+                vertexPoints2[3*x+2]=vertexPoints[3*six[6*k+1+j]+2]
+                colors[4*x]=a
+                colors[4*x+1]=b
+                colors[4*x+2]=c
+                colors[4*x+3]=1f
                 x++
-                indices[x]=six[6*k+2+j].toShort()
+                vertexPoints2[3*x]=vertexPoints[3*six[6*k+2+j]]
+                vertexPoints2[3*x+1]=vertexPoints[3*six[6*k+2+j]+1]
+                vertexPoints2[3*x+2]=vertexPoints[3*six[6*k+2+j]+2]
+                colors[4*x]=a
+                colors[4*x+1]=b
+                colors[4*x+2]=c
+                colors[4*x+3]=1f
                 x++
             }
         }
 
         for(k in 0 until 12){
+            a= Random.nextFloat()
+            b= Random.nextFloat()
+            c= Random.nextFloat()
             for(j in 0 until 3){
-                indices[x]=five[5*k].toShort()
+                vertexPoints2[3*x]=vertexPoints[3*five[5*k]]
+                vertexPoints2[3*x+1]=vertexPoints[3*five[5*k]+1]
+                vertexPoints2[3*x+2]=vertexPoints[3*five[5*k]+2]
+                colors[4*x]=a
+                colors[4*x+1]=b
+                colors[4*x+2]=c
+                colors[4*x+3]=1f
                 x++
-                indices[x]=five[5*k+1+j].toShort()
+                vertexPoints2[3*x]=vertexPoints[3*five[5*k+1+j]]
+                vertexPoints2[3*x+1]=vertexPoints[3*five[5*k+1+j]+1]
+                vertexPoints2[3*x+2]=vertexPoints[3*five[5*k+1+j]+2]
+                colors[4*x]=a
+                colors[4*x+1]=b
+                colors[4*x+2]=c
+                colors[4*x+3]=1f
                 x++
-                indices[x]=five[5*k+2+j].toShort()
+                vertexPoints2[3*x]=vertexPoints[3*five[5*k+2+j]]
+                vertexPoints2[3*x+1]=vertexPoints[3*five[5*k+2+j]+1]
+                vertexPoints2[3*x+2]=vertexPoints[3*five[5*k+2+j]+2]
+                colors[4*x]=a
+                colors[4*x+1]=b
+                colors[4*x+2]=c
+                colors[4*x+3]=1f
                 x++
             }
         }
 
-        vertexBuffer = ByteBuffer.allocateDirect(vertexPoints.size * 4)
+        ss=x
+
+        vertexBuffer = ByteBuffer.allocateDirect(vertexPoints2.size * 4)
             .order(ByteOrder.nativeOrder())
             .asFloatBuffer().apply {
-                put(vertexPoints)
+                put(vertexPoints2)
                 position(0)
             }
 
