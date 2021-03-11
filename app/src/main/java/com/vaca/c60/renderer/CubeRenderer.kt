@@ -145,22 +145,22 @@ class CubeRenderer : GLSurfaceView.Renderer {
         GLES30.glVertexAttribPointer(1, VERTEX_COLOR_SIZE, GLES30.GL_FLOAT, true, 0, colorBuffer)
         //启用颜色顶点属性
         GLES30.glEnableVertexAttribArray(1)
-        GLES30.glClearDepthf(1.0f); // 设置深度缓存
-        GLES30.glEnable(GLES30.GL_DEPTH_TEST);    // 启用深度测试
-        GLES30.glDepthFunc(GLES30.GL_LEQUAL);     // 深度测试类型
+
+
+        GLES30. glClearDepthf(1.0f); // 设置深度缓存
+        GLES30. glEnable(GLES30. GL_DEPTH_TEST);    // 启用深度测试
+       GLES30. glDepthFunc(GLES30. GL_LEQUAL);     // 深度测试类型
 
         Matrix.setIdentityM(InitMatrix, 0)
     }
 
 
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
-        Log.e("fuck", "fuck $width    $height")
         GLES30.glViewport(0, 0, width, height)
         val ratio: Float = width.toFloat() / height.toFloat()
-
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 7f)
+        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 1f, 7f)
     }
 
     override fun onDrawFrame(gl: GL10) {
@@ -171,8 +171,8 @@ class CubeRenderer : GLSurfaceView.Renderer {
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
 
-        Matrix.setRotateM(rotationMatrix, 0, angleX, 0f, -1f, 0f)
-        Matrix.setRotateM(rotationMatriy, 0, angleY, 1f, 0f, 0f)
+        Matrix.setRotateM(rotationMatrix, 0, angleX, 0f, 1f, 0f)
+        Matrix.setRotateM(rotationMatriy, 0, angleY, -1f, 0f, 0f)
 
         Matrix.multiplyMM(rotationMatrix, 0, rotationMatrix, 0, rotationMatriy, 0)
         Matrix.multiplyMM(InitMatrix, 0, rotationMatrix, 0, InitMatrix, 0)
@@ -199,7 +199,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
 
     init {
         for (k in vertexPoints.indices) {
-            vertexPoints[k] = vertexPoints[k] / 5f
+            vertexPoints[k] = vertexPoints[k] / 2f
         }
 
         for (k in 0 until 60) {
