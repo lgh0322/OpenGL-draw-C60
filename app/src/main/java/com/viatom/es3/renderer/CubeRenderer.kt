@@ -3,6 +3,7 @@ package com.viatom.es3.renderer
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
+import android.os.SystemClock
 import android.util.Log
 import com.viatom.es3.R
 import com.viatom.es3.utils.ResReadUtils.readResource
@@ -25,7 +26,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
     private val indicesBuffer: ShortBuffer
 
     private var mProgram = 0
-
+    private val rotationMatrix = FloatArray(16)
 
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     private val vPMatrix = FloatArray(16)
@@ -159,12 +160,19 @@ class CubeRenderer : GLSurfaceView.Renderer {
     }
 
     override fun onDrawFrame(gl: GL10) {
+        val scratch = FloatArray(16)
         Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, -3f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
+
+        val time = SystemClock.uptimeMillis() % 4000L
+        val angle = 0.090f * time.toInt()
+        Matrix.setRotateM(rotationMatrix, 0, angle, 0f, 0f, -1.0f)
+        Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0)
+
         val vPMatrixHandle=GLES30.glGetUniformLocation(mProgram,"uMVPMatrix")
-        GLES30.glUniformMatrix4fv(vPMatrixHandle,1,false,vPMatrix,0)
+        GLES30.glUniformMatrix4fv(vPMatrixHandle,1,false,scratch,0)
 
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT)
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
@@ -193,9 +201,9 @@ class CubeRenderer : GLSurfaceView.Renderer {
         }
 
         var x=0
-        var a=0f
-        var b=0f
-        var c=0f
+        var a: Float
+        var b: Float
+        var c: Float
         for(k in 0 until 20){
             a= Random.nextFloat()
             b= Random.nextFloat()
