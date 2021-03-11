@@ -1,7 +1,7 @@
-package com.viatom.es3.utils
+package com.vaca.c60.utils
 
 import android.content.res.Resources.NotFoundException
-import com.viatom.es3.MyApplication
+import com.vaca.c60.MyApplication
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader

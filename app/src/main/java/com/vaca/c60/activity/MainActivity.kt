@@ -1,4 +1,4 @@
-package com.viatom.es3.activity
+package com.vaca.c60.activity
 
 import android.annotation.SuppressLint
 import android.opengl.GLSurfaceView
@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.viatom.es3.R
-import com.viatom.es3.renderer.CubeRenderer
+import com.vaca.c60.R
+
+import com.vaca.c60.renderer.CubeRenderer
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var mGLSurfaceView: GLSurfaceView

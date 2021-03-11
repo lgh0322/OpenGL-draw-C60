@@ -1,4 +1,4 @@
-package com.viatom.es3
+package com.vaca.c60
 
 import android.app.Application
 import android.content.res.Resources

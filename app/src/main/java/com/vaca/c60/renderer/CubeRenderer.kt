@@ -1,15 +1,16 @@
-package com.viatom.es3.renderer
+package com.vaca.c60.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
 import android.util.Log
-import com.viatom.es3.R
-import com.viatom.es3.utils.ResReadUtils.readResource
+import com.vaca.c60.R
 
-import com.viatom.es3.utils.ShaderUtils.compileFragmentShader
-import com.viatom.es3.utils.ShaderUtils.compileVertexShader
-import com.viatom.es3.utils.ShaderUtils.linkProgram
+import com.vaca.c60.utils.ResReadUtils.readResource
+
+import com.vaca.c60.utils.ShaderUtils.compileFragmentShader
+import com.vaca.c60.utils.ShaderUtils.compileVertexShader
+import com.vaca.c60.utils.ShaderUtils.linkProgram
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
