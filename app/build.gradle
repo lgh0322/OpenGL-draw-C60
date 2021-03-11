@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.viatom.es3"
+        applicationId "com.viatom.c60"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -29,6 +29,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    android.applicationVariants.all { variant ->
+        def appName
+        variant.outputs.all { output ->
+            outputFileName = "C60-" + versionName + ".apk"
+        }
     }
 }
 

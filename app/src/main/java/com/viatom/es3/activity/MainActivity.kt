@@ -17,6 +17,7 @@ open class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         init()
     }
+
     private var previousX: Float = 0f
     private var previousY: Float = 0f
 
@@ -36,16 +37,15 @@ open class MainActivity : AppCompatActivity() {
 //    previousY = y
 
     @SuppressLint("ClickableViewAccessibility")
-    val gaga= View.OnTouchListener { _, event ->
+    val gaga = View.OnTouchListener { _, event ->
         val x = event!!.x
-        val y = event!!.y
-        when (event!!.action)
-        {
+        val y = event.y
+        when (event.action) {
             MotionEvent.ACTION_MOVE -> {
                 var dx = x - previousX
                 var dy = y - previousY
-                renderer.angleX =(dx/5)
-                renderer.angleY =(dy/5)
+                renderer.angleX = (dx / 5)
+                renderer.angleY = (dy / 5)
                 mGLSurfaceView.requestRender()
             }
 
@@ -63,7 +63,7 @@ open class MainActivity : AppCompatActivity() {
             setOnTouchListener(gaga)
             setEGLContextClientVersion(3)
             setRenderer(renderer)
-            renderMode=GLSurfaceView.RENDERMODE_WHEN_DIRTY
+            renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         }
     }
 
