@@ -2,9 +2,11 @@ package com.viatom.es3.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
+import android.opengl.Matrix
 import android.util.Log
 import com.viatom.es3.R
 import com.viatom.es3.utils.ResReadUtils.readResource
+
 import com.viatom.es3.utils.ShaderUtils.compileFragmentShader
 import com.viatom.es3.utils.ShaderUtils.compileVertexShader
 import com.viatom.es3.utils.ShaderUtils.linkProgram
@@ -23,6 +25,12 @@ class CubeRenderer : GLSurfaceView.Renderer {
     private val indicesBuffer: ShortBuffer
 
     private var mProgram = 0
+
+
+    // vPMatrix is an abbreviation for "Model View Projection Matrix"
+    private val vPMatrix = FloatArray(16)
+    private val projectionMatrix = FloatArray(16)
+    private val viewMatrix = FloatArray(16)
 
     /**
      * 点的坐标
@@ -134,6 +142,7 @@ class CubeRenderer : GLSurfaceView.Renderer {
         GLES30.glClearDepthf(1.0f); // 设置深度缓存
         GLES30.glEnable( GLES30.GL_DEPTH_TEST);    // 启用深度测试
         GLES30.glDepthFunc( GLES30.GL_LEQUAL);     // 深度测试类型
+
     }
 
 
@@ -142,9 +151,21 @@ class CubeRenderer : GLSurfaceView.Renderer {
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
         Log.e("fuck","fuck $width    $height")
         GLES30.glViewport(0, 0, width, height)
+        val ratio: Float = width.toFloat() / height.toFloat()
+
+        // this projection matrix is applied to object coordinates
+        // in the onDrawFrame() method
+        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 7f)
     }
 
     override fun onDrawFrame(gl: GL10) {
+        Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, -3f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
+
+        // Calculate the projection and view transformation
+        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
+        val vPMatrixHandle=GLES30.glGetUniformLocation(mProgram,"uMVPMatrix")
+        GLES30.glUniformMatrix4fv(vPMatrixHandle,1,false,vPMatrix,0)
+
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT)
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
         GLES30.glDrawArrays(
