@@ -29,14 +29,14 @@ class CubeRenderer : GLSurfaceView.Renderer {
     private val InitMatrix = FloatArray(16)
     private val rotationMatrix = FloatArray(16)
     private val rotationMatriy = FloatArray(16)
-
+    private val rotationMatriz = FloatArray(16)
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     private val vPMatrix = FloatArray(16)
     private val projectionMatrix = FloatArray(16)
     private val viewMatrix = FloatArray(16)
     var angleX = 0f
     var angleY = 0f
-
+    var angleZ = 0f
     /**
      * 点的坐标
      */
@@ -173,8 +173,9 @@ class CubeRenderer : GLSurfaceView.Renderer {
 
         Matrix.setRotateM(rotationMatrix, 0, angleX, 0f, 1f, 0f)
         Matrix.setRotateM(rotationMatriy, 0, angleY, -1f, 0f, 0f)
-
+        Matrix.setRotateM(rotationMatriz, 0, angleZ, 0f, 0f, 1f)
         Matrix.multiplyMM(rotationMatrix, 0, rotationMatrix, 0, rotationMatriy, 0)
+        Matrix.multiplyMM(rotationMatrix, 0, rotationMatrix, 0, rotationMatriz, 0)
         Matrix.multiplyMM(InitMatrix, 0, rotationMatrix, 0, InitMatrix, 0)
 
         Matrix.multiplyMM(scratch, 0, vPMatrix, 0, InitMatrix, 0)
