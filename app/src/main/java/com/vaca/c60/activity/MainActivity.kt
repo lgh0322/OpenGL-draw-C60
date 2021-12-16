@@ -34,6 +34,9 @@ open class MainActivity : AppCompatActivity() {
         val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
         sensorManager.registerListener(object: SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
+                if(touchDown){
+                    return
+                }
                 // This timestep's delta rotation to be multiplied by the current rotation
                 // after computing it from the gyro sample data.
                 if (timestamp != 0f && event != null) {
@@ -86,6 +89,8 @@ open class MainActivity : AppCompatActivity() {
     private var previousX: Float = 0f
     private var previousY: Float = 0f
 
+    var touchDown=false
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -94,10 +99,16 @@ open class MainActivity : AppCompatActivity() {
         val y = event.y
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
+                touchDown=true
+                Log.e("move","asdf")
                 var dx = x - previousX
                 var dy = y - previousY
                 renderer.angleX = (dx / 5)
                 renderer.angleY = (dy / 5)
+            }
+
+            MotionEvent.ACTION_UP->{
+                touchDown=false
             }
 
         }
@@ -111,7 +122,7 @@ open class MainActivity : AppCompatActivity() {
 
         renderer = CubeRenderer()
         mGLSurfaceView.run {
-//            setOnTouchListener(gaga)
+            setOnTouchListener(gaga)
             setEGLContextClientVersion(3)
             setRenderer(renderer)
             renderMode = GLSurfaceView.RENDERMODE_CONTINUOUSLY
